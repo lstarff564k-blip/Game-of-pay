@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pocketful</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#f2f4f8;--sf:#fff;--ln:#dfe3ec;--tx:#131722;--mu:#667085;--ac:#ffbe1a;--ok:#12a36b;--no:#e0364a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1015;--sf:#171a21;--ln:#262a34;--tx:#eef0f5;--mu:#8a91a3;--ok:#35d49a;--no:#ff5d6c}}
+:root[data-theme="dark"]{--bg:#0e1015;--sf:#171a21;--ln:#262a34;--tx:#eef0f5;--mu:#8a91a3;--ok:#35d49a;--no:#ff5d6c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+body{padding-bottom:80px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--sf);z-index:30}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sf);border-bottom:1px solid var(--ln);display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+header b{font-size:20px;letter-spacing:-.02em}
+#bal{background:var(--ac);color:#1a1300;font-weight:800;padding:6px 13px;border-radius:999px}
+main{max-width:560px;margin:0 auto;padding:16px}
+.tab{display:none}.tab.on{display:block}
+h3{margin:22px 0 8px;font-size:13px;color:var(--mu);font-weight:600}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:14px}
+.mu{color:var(--mu)}.c{text-align:center}.big{font-size:32px;font-weight:800;margin:8px 0}.up{color:var(--ok)}.dn{color:var(--no)}
+p{margin:6px 0}small{font-size:12px}
+label{display:block;font-size:12px;color:var(--mu);margin-top:8px}
+input{width:100%;font:inherit;font-size:16px;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px 12px;margin:4px 0 10px}
+button{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px 14px;font-weight:600;cursor:pointer}
+button.pri{background:var(--ac);color:#1a1300;border:0;width:100%;padding:13px;font-weight:800;font-size:16px}
+button.sm{width:auto;padding:10px 20px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.two3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gm{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.kv,.row{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid var(--ln)}.kv:first-child{border-top:0}
+.row{border:0;align-items:baseline}
+.row2{display:grid;grid-template-columns:repeat(4,1fr);padding:10px 4px;border-top:1px solid var(--ln);cursor:pointer}.row2:first-child{border:0}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sw{display:grid;gap:3px;padding:8px;text-align:left}.sw i{display:block;height:34px;border-radius:7px;border:1px solid var(--ln)}.sw small{color:var(--mu)}.sw.on{border-color:var(--ac);box-shadow:0 0 0 2px var(--ac)}
+.dc{position:relative;aspect-ratio:1.586;border-radius:18px;padding:18px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;text-shadow:0 1px 3px #0006}
+.dc.an{background-size:300% 300%;animation:bgm 7s ease infinite}
+.dc::before{content:"";position:absolute;inset:0;background:var(--pt);opacity:.4;pointer-events:none}
+.dc>*{position:relative}.cnm{font-size:26px;font-weight:800;letter-spacing:-.01em}
+.dc.f1{box-shadow:0 0 30px 4px #7aa7ff99}
+.dc.f2::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,#fff7 50%,transparent 65%);transform:translateX(-100%);animation:shn 2.8s infinite}
+.dc.f3::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:3px;background:linear-gradient(120deg,#f0f,#0ff,#ff0,#f0f) 0 0/300% 300%;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:bgm 3s linear infinite}
+@keyframes bgm{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@keyframes shn{to{transform:translateX(100%)}}
+.qrb{display:inline-block;background:#fff;padding:12px;border-radius:12px;margin-top:12px}.qrb img{display:block}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--sf);border-top:1px solid var(--ln);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;border:0;border-radius:0;background:none;color:var(--mu);padding:14px 0;font-size:12px}nav button.on{color:var(--tx);box-shadow:inset 0 3px 0 var(--ac)}
+#ov{position:fixed;inset:0;z-index:40;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 28px}
+#ov>*{max-width:520px;margin-left:auto;margin-right:auto}
+.ovh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:18px}
+#toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;opacity:0;pointer-events:none;transition:.2s;z-index:60}#toast.on{opacity:1;transform:translate(-50%,0)}
+.coin{width:180px;height:180px;border-radius:50%;border:0;font-size:80px;font-weight:900;color:#7a5200;background:radial-gradient(circle at 35% 30%,#fff2a8,#ffc83d 55%,#d99100);box-shadow:0 8px 0 #a86b00,0 14px 30px #0005;touch-action:manipulation;margin:14px 0}
+.coin.gold{background:radial-gradient(circle at 35% 30%,#fff,#ff7bd5 55%,#a22bd6);color:#fff;box-shadow:0 0 30px #ff7bd5,0 8px 0 #6d1a8f}
+.gr3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:14px auto}.gr3 button{aspect-ratio:1;font-size:40px;background:#6b4a2b;border:0;border-radius:50%;padding:0}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:14px auto}.mg button{aspect-ratio:1;font-size:30px;background:var(--ac);border:0;border-radius:12px;padding:0}.mg button:not(:empty){background:var(--sf);border:1px solid var(--ln)}.mg button:disabled{opacity:1;background:var(--ok)}
+.pc{position:relative;display:block;width:50px;height:70px;border-radius:7px;background:#fff;color:#111;font-weight:800;border:1px solid #0003;box-shadow:0 2px 5px #0005}.pc i{position:absolute;left:5px;top:3px;font-style:normal;font-size:13px;line-height:1}.pc b{position:absolute;inset:0;display:grid;place-items:center;font-size:28px}.pc.rd{color:#d32f2f}.pc.back{background:repeating-linear-gradient(45deg,#2b4acb 0 4px,#1b2f8f 4px 8px);border-color:#fff}.pc.e{background:none;border:1px dashed var(--ln)}
+.hand{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:8px 0}.bt .pc{width:36px;height:50px}.bt .pc b{font-size:17px}.bt .pc i{font-size:10px;left:3px}
+.cbt{padding:0;border:0;background:none}
+.whw{position:relative;width:230px;margin:14px auto}.wh{width:230px;height:230px;border-radius:50%;border:6px solid var(--sf);box-shadow:0 0 0 2px var(--ln);transition:transform 4s cubic-bezier(.12,.7,.1,1)}
+.ptr{position:absolute;left:50%;top:-10px;margin-left:-10px;border:10px solid transparent;border-top:18px solid var(--tx);z-index:2}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.cc{display:grid;gap:2px;border-bottom:4px solid var(--c);padding:10px 4px}.cc.on{background:var(--c);color:#111}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}.seg .on{background:var(--ac);color:#1a1300;border:0}
+.bar{height:8px;background:var(--bg);border-radius:9px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--ac)}
+.doc{background:var(--bg);border-radius:10px;padding:14px;font-weight:600;margin:10px 0}
+canvas{width:100%;display:block}
+
+.hr{display:flex;gap:8px;align-items:center}#gear{padding:5px 9px;border-radius:999px;font-size:17px;line-height:1}
+.two3 .on{background:var(--ac);color:#1a1300;border:0}
+.sw i{display:grid;place-items:center;font-size:22px}.sw i svg{width:34px;height:34px}
+.dc>.stk{position:absolute;top:12px;right:12px;font-size:70px;line-height:1;text-shadow:none;animation:fl 3s ease-in-out infinite}.stk svg{width:1em;height:1em;display:block}
+@keyframes fl{50%{transform:translateY(-6px) rotate(6deg)}}
+.arena{position:relative;height:300px;margin:10px 0;border-radius:16px;background:var(--bg);border:1px dashed var(--ln);overflow:hidden;touch-action:none}
+.coin.sm2{position:absolute;margin:0;padding:0;box-shadow:0 5px 0 #a86b00,0 8px 16px #0004}.coin.sm2.gold{box-shadow:0 0 20px #ff7bd5,0 5px 0 #6d1a8f}.coin.sm2.bomb{background:#2b2b2b;box-shadow:0 0 18px #f33,0 5px 0 #000}.coin:active{transform:scale(.9)}
+.fl{position:absolute;z-index:5;font-weight:900;font-size:20px;pointer-events:none;animation:up .7s forwards}@keyframes up{to{transform:translateY(-44px);opacity:0}}
+.gr3{position:relative}.gr3 button:active{transform:scale(.88)}
+.mg button.flip{animation:flp .25s}@keyframes flp{from{transform:rotateY(90deg)}}
+.mon{background:#2a2f3a;border-radius:14px 14px 6px 6px;padding:12px 12px 14px;box-shadow:0 6px 18px #0004;border:2px solid #444b5a;margin-top:10px}
+.scr{background:#0f2a43;border-radius:6px;padding:8px;color:#e6f2ff;box-shadow:inset 0 0 20px #0008}
+.wt{display:flex;align-items:center;gap:5px;font-size:11px;background:#1b4a7a;border-radius:5px 5px 0 0;padding:4px 8px;margin:-8px -8px 8px}
+.wt i{width:8px;height:8px;border-radius:50%;background:#ff5f56}.wt i+i{background:#ffbd2e}.wt i+i+i{background:#27c93f}
+.mail{background:#fffbe0;color:#222;border-radius:6px;padding:8px 10px;font-weight:600;font-size:14px;margin-bottom:8px}
+.sheet{width:100%;border-collapse:collapse;background:#fff;color:#111;font-size:13px}.sheet th{background:#e8eef7;text-align:left}.sheet td,.sheet th{border:1px solid #c8d0dc;padding:5px 8px}.sheet tr.hl td{background:#fff8c5}
+.sheet input{margin:0;padding:5px;font-size:14px;background:#fff;color:#111;border:2px solid #1a73e8;border-radius:4px}
+.stand{width:80px;height:14px;margin:0 auto 6px;background:#444b5a;border-radius:0 0 8px 8px}
+.desk{background:linear-gradient(135deg,#b07a47,#8c5a2e);border-radius:14px;padding:18px 12px 14px;margin-top:10px;box-shadow:inset 0 0 24px #0006}
+.ppr{position:relative;background:#fffef6 repeating-linear-gradient(transparent 0 23px,#9db8e066 23px 24px);color:#222;padding:22px 16px 16px;border-radius:3px;transform:rotate(-1.5deg);box-shadow:0 6px 14px #0006;font:600 16px/24px Georgia,serif;min-height:110px}
+.ppr::before{content:"📎";position:absolute;top:-12px;left:12px;font-size:22px}
+.fold{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.fold button{background:#f0c75e;color:#3a2a00;border:0;border-radius:4px 12px 4px 4px;padding:10px 4px;font-size:13px}
+.felt{background:radial-gradient(ellipse at 50% 35%,#23964f,#0b4627 78%);border:8px solid #6b3f1d;border-radius:24px;box-shadow:inset 0 0 36px #000a,0 4px 0 #3e2410;padding:14px 8px;margin:12px 0;color:#eaffee;text-align:center;position:relative}
+.felt .mu{color:#b4e6c5}.felt .big{color:#ffe27a}.felt .hand{margin:10px 0}
+.chip{display:inline-grid;place-items:center;min-width:44px;height:44px;padding:0 6px;border-radius:50%;border:4px dashed #fff;background:#d32f2f;color:#fff;font-weight:800;font-size:12px;margin:2px 3px;box-shadow:0 3px 0 #0006;text-shadow:none}.chip.c2{background:#1e88e5}.chip.c3{background:#222}
+.bjt .chip{position:absolute;right:8px;bottom:8px}.bjt .pc{animation:deal .3s backwards}@keyframes deal{from{transform:translateY(-24px) rotate(-8deg);opacity:0}}
+</style>
+</head>
+<body>
+<header><b>Pocketful</b><div class="hr"><span id="bal"></span><button id="gear" aria-label="Settings">⚙️</button></div></header>
+<main>
+<section class="tab on" id="t-card"></section><section class="tab" id="t-pay"></section><section class="tab" id="t-games"></section>
+<section class="tab" id="t-trade"></section><section class="tab" id="t-casino"></section><section class="tab" id="t-jobs"></section>
+</main>
+<nav><button data-t="card" class="on">Card</button><button data-t="pay">Pay</button><button data-t="games">Games</button><button data-t="trade">Trade</button><button data-t="casino">Casino</button><button data-t="jobs">Jobs</button></nav>
+<div id="ov" hidden><div class="ovh"><b id="ovt"></b><button id="x">Close</button></div><div id="ovb"></div></div>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],rn=n=>Math.floor(Math.random()*n);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S;try{S=JSON.parse(localStorage.getItem('pocketful1'))}catch(e){}
+S=S||{c:10,card:{n:'Your Name',t:'Your Title',h:'@yourhandle',bg:'b0',pt:'p0',fx:'f0'},own:['b0','p0','f0'],pos:{},jobs:{},log:[],done:[],sent:[],link:'',theme:'auto',best:{}};S.best=S.best||{};S.theme=S.theme||'auto';
+const save=()=>{try{localStorage.setItem('pocketful1',JSON.stringify(S))}catch(e){}};
+const usd=n=>(n<0?'-':'')+'$'+Math.abs(n).toFixed(2),r2=n=>Math.round(n*100)/100,upd=()=>$('#bal').textContent=usd(S.c);
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)}
+function add(n){S.c=r2(S.c+n);save();upd()}
+function pay(n){if(S.c<n-1e-9){toast('Insufficient funds');return 0}add(-n);return 1}
+const tm=[],I=(f,ms)=>{const i=setInterval(f,ms);tm.push(i);return i},O=(f,ms)=>{const i=setTimeout(f,ms);tm.push(i);return i};
+const clr=()=>tm.splice(0).forEach(i=>{clearInterval(i);clearTimeout(i)});
+function openOv(t,h){$('#ovt').textContent=t;$('#ovb').innerHTML=h;$('#ov').hidden=false}
+function closeOv(){clr();$('#ov').hidden=true;$('#ovb').innerHTML='';R[T]()}
+$('#x').onclick=closeOv;
+const applyTheme=()=>{const t=S.theme||'auto',h=document.documentElement;t=='auto'?h.removeAttribute('data-theme'):h.dataset.theme=t};applyTheme();
+function rSet(){openOv('Settings',`<h3 style="margin-top:0">Background theme</h3><div class="two3">${[['auto','🌗 Auto'],['light','☀️ Light'],['dark','🌙 Dark']].map(([v,n])=>`<button data-th="${v}" class="${S.theme==v?'on':''}">${n}</button>`).join('')}</div><p class="mu"><small>Auto follows your phone's setting.</small></p>`)}
+
+// ---------- Card ----------
+const BG=[['b0','Midnight',0,'linear-gradient(135deg,#1c2333,#0b0f1a)'],['b1','Ocean',5,'linear-gradient(135deg,#0072ff,#00c6ff)'],['b2','Sunset',8,'linear-gradient(135deg,#ff512f,#dd2476)'],['b3','Forest',12,'linear-gradient(135deg,#0f9b0f,#0b4d2e)'],['b4','Aurora',30,'linear-gradient(120deg,#00f5a0,#7b2ff7,#00d9f5,#00f5a0)',1],['b5','Gold Foil',80,'linear-gradient(120deg,#8a6200,#ffd75e,#fff3b0,#c99400,#ffd75e)',1],['b6','Holographic',80,'linear-gradient(120deg,#ff9ad5,#9ad7ff,#b6ffb0,#fff59a,#ff9ad5)',1]];
+const tile=e=>`url(data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='46' height='46'>${e.startsWith('<svg')?e.replace('<svg',"<svg x='5' y='5' width='36' height='36'"):`<text x='5' y='32' font-size='24'>${e}</text>`}</svg>`).replace(/'/g,'%27')}) 0 0/46px 46px`;
+const sv=(d,b)=>`<svg viewBox='0 0 64 64'><defs>${d}</defs>${b}</svg>`,gr=(i,a,b)=>`<linearGradient id='${i}' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='${a}'/><stop offset='1' stop-color='${b}'/></linearGradient>`;
+const eye=(x,y,r=3.5)=>`<circle cx='${x}' cy='${y}' r='${r}' fill='#1b1230'/><circle cx='${x+1}' cy='${y-1.2}' r='${r/3}' fill='#fff'/>`;
+const SWORD="<path d='M32 4L36 10V42H28V10Z' fill='url(#sw1)' stroke='#5b6470' stroke-width='1'/><path d='M32 8V40' stroke='#fff' stroke-opacity='.7' stroke-width='1.5'/><rect x='21' y='42' width='22' height='5' rx='2.5' fill='url(#sw2)' stroke='#5c4300'/><rect x='29' y='47' width='6' height='10' fill='#6b3a1a'/><path d='M29 49h6M29 52h6M29 55h6' stroke='#3a1f0a'/><circle cx='32' cy='59' r='3.5' fill='url(#sw2)' stroke='#5c4300'/>";
+const ART={
+cat:sv(gr('c1','#ffb55e','#e0801f'),"<path d='M9 26L11 4L27 15Z' fill='url(#c1)'/><path d='M55 26L53 4L37 15Z' fill='url(#c1)'/><path d='M14 21L14.5 10L22 15Z' fill='#ff9db5'/><path d='M50 21L49.5 10L42 15Z' fill='#ff9db5'/><ellipse cx='32' cy='37' rx='25' ry='22' fill='url(#c1)'/><path d='M32 15v8M24 17l2 6M40 17l-2 6' stroke='#b85f12' stroke-width='2.5' stroke-linecap='round'/><ellipse cx='32' cy='46' rx='11' ry='8' fill='#fff3e2'/><ellipse cx='22' cy='34' rx='5.5' ry='6.5' fill='#fff'/><ellipse cx='42' cy='34' rx='5.5' ry='6.5' fill='#fff'/>"+eye(22.5,35,3.8)+eye(41.5,35,3.8)+"<path d='M29.5 41h5l-2.5 3Z' fill='#ff6f91'/><path d='M32 44v3M32 47q-3 3-6 1M32 47q3 3 6 1' stroke='#5a3510' stroke-width='1.5' fill='none' stroke-linecap='round'/><path d='M3 38h13M4 44l12-3M61 38H48M60 44l-12-3' stroke='#fff' stroke-width='1.3'/><circle cx='15' cy='43' r='3.5' fill='#ff8aa8' opacity='.55'/><circle cx='49' cy='43' r='3.5' fill='#ff8aa8' opacity='.55'/>"),
+helm:sv(gr('h1','#fbe48a','#9a7208')+gr('h2','#ff6050','#8e1111'),"<path d='M14 24Q32-12 50 24L45 26Q32 2 19 26Z' fill='url(#h2)'/><path d='M24 12v12M32 7v15M40 12v12' stroke='#5c0d0d' stroke-width='1.5' opacity='.6'/><path d='M9 40Q9 15 32 15Q55 15 55 40V58H44V48H39V58H25V48H20V58H9Z' fill='url(#h1)' stroke='#5c4300' stroke-width='2' stroke-linejoin='round'/><path d='M10 28Q32 20 54 28' stroke='#5c4300' stroke-width='2' fill='none'/><rect x='16' y='34' width='32' height='6' rx='3' fill='#1a1208'/><path d='M26 40v8M32 40v8M38 40v8' stroke='#1a1208' stroke-width='2.5'/><path d='M16 22Q24 15 33 16' stroke='#fff' stroke-opacity='.7' stroke-width='3' fill='none' stroke-linecap='round'/><g fill='#fff6b8' stroke='#5c4300' stroke-width='.8'><circle cx='14' cy='33' r='1.8'/><circle cx='50' cy='33' r='1.8'/><circle cx='14' cy='50' r='1.8'/><circle cx='50' cy='50' r='1.8'/></g>"),
+bun:sv(gr('b1','#ffffff','#e4e4f2'),"<g fill='url(#b1)' stroke='#cfcfe0' stroke-width='1.5'><ellipse cx='22' cy='15' rx='7' ry='15' transform='rotate(-8 22 15)'/><ellipse cx='42' cy='15' rx='7' ry='15' transform='rotate(8 42 15)'/><ellipse cx='32' cy='41' rx='22' ry='19'/></g><ellipse cx='22' cy='16' rx='3.5' ry='10' fill='#ffb3c8' transform='rotate(-8 22 16)'/><ellipse cx='42' cy='16' rx='3.5' ry='10' fill='#ffb3c8' transform='rotate(8 42 16)'/>"+eye(23,39)+eye(41,39)+"<ellipse cx='32' cy='45' rx='3' ry='2.2' fill='#ff7fa3'/><path d='M32 47q-4 4-8 1M32 47q4 4 8 1' stroke='#9a5a70' stroke-width='1.5' fill='none' stroke-linecap='round'/><rect x='30' y='49' width='4' height='5' rx='1' fill='#fff' stroke='#cfcfe0'/><circle cx='16' cy='46' r='4' fill='#ffa7c0' opacity='.5'/><circle cx='48' cy='46' r='4' fill='#ffa7c0' opacity='.5'/>"),
+pan:sv(gr('p1','#ffffff','#dcdce6'),"<circle cx='13' cy='13' r='8' fill='#1c1c24'/><circle cx='51' cy='13' r='8' fill='#1c1c24'/><ellipse cx='32' cy='36' rx='24' ry='22' fill='url(#p1)' stroke='#c9c9d6'/><ellipse cx='21' cy='33' rx='7' ry='9' fill='#1c1c24' transform='rotate(25 21 33)'/><ellipse cx='43' cy='33' rx='7' ry='9' fill='#1c1c24' transform='rotate(-25 43 33)'/><circle cx='21.5' cy='33' r='3.2' fill='#fff'/><circle cx='42.5' cy='33' r='3.2' fill='#fff'/><circle cx='22' cy='33.3' r='1.8' fill='#111'/><circle cx='42' cy='33.3' r='1.8' fill='#111'/><ellipse cx='32' cy='42' rx='4.5' ry='3.2' fill='#1c1c24'/><path d='M32 45q-4 5-9 2M32 45q4 5 9 2' stroke='#1c1c24' stroke-width='1.8' fill='none' stroke-linecap='round'/><circle cx='14' cy='45' r='3.5' fill='#ff9db5' opacity='.5'/><circle cx='50' cy='45' r='3.5' fill='#ff9db5' opacity='.5'/>"),
+dra:sv(gr('d1','#5be37a','#16803a')+gr('d2','#fff1c0','#e2b866'),"<path d='M10 24L2 6L22 16Z M54 24L62 6L42 16Z' fill='#f4e2a8' stroke='#a8863a'/><path d='M22 14L26 3L30 13L34 3L38 13L42 3L44 14Z' fill='#0f6a2e'/><path d='M12 30Q4 34 6 46L16 40Z M52 30Q60 34 58 46L48 40Z' fill='#1a9d48'/><ellipse cx='32' cy='34' rx='20' ry='20' fill='url(#d1)' stroke='#0d5a28' stroke-width='1.5'/><ellipse cx='32' cy='46' rx='14' ry='11' fill='url(#d2)'/><ellipse cx='26' cy='46' rx='2' ry='3' fill='#7a4a10'/><ellipse cx='38' cy='46' rx='2' ry='3' fill='#7a4a10'/><path d='M19 29Q24 24 29 30Q24 34 19 29ZM45 29Q40 24 35 30Q40 34 45 29Z' fill='#ffd23d' stroke='#7a4a00'/><ellipse cx='24' cy='29.5' rx='1.3' ry='3' fill='#1a0a00'/><ellipse cx='40' cy='29.5' rx='1.3' ry='3' fill='#1a0a00'/><path d='M24 54l2 4 2-4M36 54l2 4 2-4' fill='#fff' stroke='#999' stroke-width='.6'/><path d='M22 21Q26 18 29 21M42 21Q38 18 35 21' stroke='#0d5a28' stroke-width='2' fill='none'/><circle cx='20' cy='38' r='1.2' fill='#0d5a28'/><circle cx='44' cy='38' r='1.2' fill='#0d5a28'/>"),
+uni:sv(gr('u1','#ffffff','#e6dcf7')+gr('u2','#fff1a0','#e0a800'),"<path d='M10 14Q-2 30 10 52Q14 34 20 24Z' fill='#ff6fae'/><path d='M13 16Q3 32 13 50Q17 34 22 26Z' fill='#ffc34d'/><path d='M54 14Q66 30 54 52Q50 34 44 24Z' fill='#4dc8ff'/><path d='M51 16Q61 32 51 50Q47 34 42 26Z' fill='#9b6bff'/><path d='M20 20L18 4L28 14ZM44 20L46 4L36 14Z' fill='#fff' stroke='#d6c8ee'/><ellipse cx='32' cy='40' rx='19' ry='20' fill='url(#u1)' stroke='#d6c8ee' stroke-width='1.5'/><path d='M32 2L37 24H27Z' fill='url(#u2)' stroke='#a97c00'/><path d='M28.5 18h7M29.5 12.5h5' stroke='#a97c00' stroke-width='1.2'/><path d='M21 35q3-4 6 0M37 35q3-4 6 0' stroke='#3a2a60' stroke-width='2' fill='none' stroke-linecap='round'/><ellipse cx='24' cy='38' rx='2.4' ry='3' fill='#3a2a60'/><ellipse cx='40' cy='38' rx='2.4' ry='3' fill='#3a2a60'/><circle cx='24.8' cy='37' r='.9' fill='#fff'/><circle cx='40.8' cy='37' r='.9' fill='#fff'/><ellipse cx='32' cy='50' rx='9' ry='6' fill='#ffd6e6'/><circle cx='29' cy='50' r='1.2' fill='#c26a8d'/><circle cx='35' cy='50' r='1.2' fill='#c26a8d'/><circle cx='18' cy='45' r='3.5' fill='#ff9ec4' opacity='.5'/><circle cx='46' cy='45' r='3.5' fill='#ff9ec4' opacity='.5'/>"),
+rkt:sv(gr('r1','#ffffff','#b9c3d6')+gr('r2','#ffe45a','#ff5a1f'),"<circle cx='8' cy='10' r='1.5' fill='#fff'/><circle cx='56' cy='20' r='1.2' fill='#fff'/><circle cx='54' cy='50' r='1.5' fill='#fff'/><circle cx='10' cy='42' r='1.2' fill='#fff'/><path d='M24 46L32 44L40 46L36 64H28Z' fill='url(#r2)' opacity='.95'/><path d='M27 46L32 56L37 46Z' fill='#fff7c2'/><path d='M22 38L12 52L24 48ZM42 38L52 52L40 48Z' fill='#e0364a' stroke='#8e1124'/><path d='M32 2Q46 14 44 40H20Q18 14 32 2Z' fill='url(#r1)' stroke='#8a96ac' stroke-width='1.5'/><path d='M32 2Q40 8 43 20H21Q24 8 32 2Z' fill='#e0364a'/><circle cx='32' cy='28' r='6.5' fill='#2a7de1' stroke='#8a96ac' stroke-width='2'/><path d='M28 26Q30 23 33 24' stroke='#fff' stroke-width='1.8' fill='none' stroke-linecap='round'/><rect x='20' y='36' width='24' height='3' fill='#c5cddb'/>"),
+crn:sv(gr('k1','#fff0a0','#d99a00'),"<path d='M6 50L4 18L19 32L32 10L45 32L60 18L58 50Z' fill='url(#k1)' stroke='#7a5400' stroke-width='2' stroke-linejoin='round'/><rect x='6' y='46' width='52' height='10' rx='2' fill='url(#k1)' stroke='#7a5400' stroke-width='2'/><path d='M12 25L18 40M52 25L46 40' stroke='#fff' stroke-opacity='.6' stroke-width='2'/><g stroke='#7a5400' stroke-width='1'><circle cx='32' cy='51' r='3.6' fill='#e0364a'/><circle cx='18' cy='51' r='3' fill='#2a9df4'/><circle cx='46' cy='51' r='3' fill='#2ecc71'/></g><circle cx='4' cy='16' r='3.5' fill='#fff' stroke='#bbb'/><circle cx='32' cy='8' r='3.5' fill='#fff' stroke='#bbb'/><circle cx='60' cy='16' r='3.5' fill='#fff' stroke='#bbb'/><path d='M30 38l2-4 2 4-2 4Z' fill='#fff' opacity='.8'/>"),
+gho:sv(gr('g1','#ffffff','#cfd6ff'),"<ellipse cx='32' cy='36' rx='28' ry='28' fill='#a8b4ff' opacity='.25'/><path d='M12 30Q12 6 32 6Q52 6 52 30V56L45 50L38 58L32 50L26 58L19 50L12 56Z' fill='url(#g1)' stroke='#aab4ee' stroke-width='1.5' stroke-linejoin='round'/>"+eye(24,28,4.5)+eye(40,28,4.5)+"<ellipse cx='32' cy='39' rx='3.5' ry='4.5' fill='#3a3070'/><circle cx='17' cy='36' r='3.5' fill='#ff9ec4' opacity='.6'/><circle cx='47' cy='36' r='3.5' fill='#ff9ec4' opacity='.6'/><path d='M18 14Q22 9 28 8' stroke='#fff' stroke-width='3' stroke-linecap='round' fill='none'/>"),
+frg:sv(gr('f1','#8be35a','#3d9a1f'),"<ellipse cx='32' cy='42' rx='28' ry='19' fill='url(#f1)' stroke='#2a6e14' stroke-width='1.5'/><circle cx='18' cy='20' r='11' fill='url(#f1)' stroke='#2a6e14' stroke-width='1.5'/><circle cx='46' cy='20' r='11' fill='url(#f1)' stroke='#2a6e14' stroke-width='1.5'/><circle cx='18' cy='20' r='7.5' fill='#fff'/><circle cx='46' cy='20' r='7.5' fill='#fff'/><circle cx='19' cy='21' r='4.2' fill='#1b2a10'/><circle cx='45' cy='21' r='4.2' fill='#1b2a10'/><circle cx='20.4' cy='19.4' r='1.4' fill='#fff'/><circle cx='46.4' cy='19.4' r='1.4' fill='#fff'/><path d='M12 44Q32 60 52 44' stroke='#1f5410' stroke-width='2.5' fill='none' stroke-linecap='round'/><circle cx='28' cy='36' r='1.2' fill='#1f5410'/><circle cx='36' cy='36' r='1.2' fill='#1f5410'/><circle cx='14' cy='44' r='4' fill='#ff9ec4' opacity='.55'/><circle cx='50' cy='44' r='4' fill='#ff9ec4' opacity='.55'/><circle cx='24' cy='50' r='2' fill='#6dc83f'/><circle cx='42' cy='51' r='2.5' fill='#6dc83f'/>"),
+swd:sv(gr('sw1','#ffffff','#9aa6b5')+gr('sw2','#ffe27a','#b8860b'),`<g transform='rotate(45 32 32)'>${SWORD}</g><g transform='rotate(-45 32 32)'>${SWORD}</g>`)};
+const PT=[...[['p0','Plain',0,'none'],['p1','Dots',5,'radial-gradient(#fff 1.2px,transparent 1.6px) 0 0/14px 14px'],['p2','Grid',10,'linear-gradient(#fff3 1px,transparent 1px) 0 0/16px 16px,linear-gradient(90deg,#fff3 1px,transparent 1px) 0 0/16px 16px'],['p3','Stripes',15,'repeating-linear-gradient(45deg,#fff3 0 6px,transparent 6px 14px)'],['p4','Stars',40,'radial-gradient(#fff 1px,transparent 2px) 0 0/22px 22px,radial-gradient(#fff 1px,transparent 2px) 11px 11px/22px 22px']],...[['p5','Cute Cat',10,ART.cat],['p6','Gladiator Helmet',25,ART.helm],['p7','Bunny',10,ART.bun],['p8','Panda',12,ART.pan],['p9','Dragon',30,ART.dra],['p10','Unicorn',30,ART.uni],['p11','Rocket',20,ART.rkt],['p12','Crown',40,ART.crn],['p13','Ghost',15,ART.gho],['p14','Frog',10,ART.frg],['p15','Crossed Swords',35,ART.swd]].map(([a,b,c,e])=>[a,b,c,tile(e),e])];
+const FX=[['f0','No effect',0],['f1','Glow',20],['f2','Shine sweep',45],['f3','Rainbow edge',80]];
+const cardEl=()=>{const c=S.card,b=BG.find(x=>x[0]==c.bg),p=PT.find(x=>x[0]==c.pt);return `<div class="dc ${c.fx} ${b[4]?'an':''}" style="background-image:${b[3]};--pt:${p[3]}">${p[4]?`<span class="stk">${p[4]}</span>`:''}<div class="cnm">${esc(c.n)}</div><div>${esc(c.t)}</div><small>${esc(c.h)}</small></div>`};
+function rCard(){
+ const sw=(L,k)=>L.map(([id,n,p,css,em])=>{const on=S.card[k]==id,own=S.own.includes(id),pv=k=='bg'?`background-image:${css}`:k=='pt'?`background:${css};background-color:#2a3142`:'';return `<button class="sw${on?' on':''}" data-k="${k}" data-id="${id}"><i style="${pv}">${k=='pt'&&em?em:''}</i><b>${n}</b><small>${on?'Equipped':own?'Owned':usd(p)}</small></button>`}).join('');
+ $('#t-card').innerHTML=`<div id="cp">${cardEl()}</div><h3>Your details</h3><div class="box"><input id="cn" value="${esc(S.card.n)}" maxlength="28" placeholder="Name"><input id="ct" value="${esc(S.card.t)}" maxlength="34" placeholder="Title"><input id="ch" value="${esc(S.card.h)}" maxlength="34" placeholder="Handle or contact" style="margin-bottom:0"></div><h3>Backgrounds</h3><div class="grid">${sw(BG,'bg')}</div><h3>Details (cute &amp; cool stuff)</h3><div class="grid">${sw(PT,'pt')}</div><h3>Effects</h3><div class="grid">${sw(FX,'fx')}</div>`;
+ [['#cn','n'],['#ct','t'],['#ch','h']].forEach(([s,k])=>$(s).oninput=e=>{S.card[k]=e.target.value;save();$('#cp').innerHTML=cardEl()});
+}
+function buySw(x){const k=x.dataset.k,id=x.dataset.id,it={bg:BG,pt:PT,fx:FX}[k].find(y=>y[0]==id);
+ if(!S.own.includes(id)){if(!pay(it[2]))return;S.own.push(id);toast('Unlocked '+it[1])}
+ S.card[k]=id;save();rCard()}
+
+// ---------- Pay ----------
+const base=()=>location.href.split('#')[0];
+function rPay(){
+ $('#t-pay').innerHTML=`<div class="box c"><h3 style="margin:0;text-align:left">Send money by QR</h3><input id="am" type="number" inputmode="decimal" placeholder="Amount to send" min="0.01" step="0.01"><button class="pri" id="mk">Create QR code</button><div id="qr"></div><p class="mu" id="qn"></p></div><h3>App link</h3><div class="box"><input id="lk" value="${esc(S.link||base())}"><small class="mu">Scanning opens this link. Set it to your published site if it is different.</small></div><h3>Activity</h3><div class="box">${S.log.slice(0,6).map(l=>`<div class="kv"><span>${esc(l[0])}</span><b class="${l[1]>0?'up':'dn'}">${l[1]>0?'+':''}${usd(l[1])}</b></div>`).join('')||'<span class="mu">No activity yet</span>'}</div>`;
+ $('#mk').onclick=()=>{const a=r2(+$('#am').value);if(!(a>=.01))return toast('Enter an amount');if(!pay(a))return;
+  const id=Math.random().toString(36).slice(2,10);S.sent.push(id);S.log.unshift(['QR payment sent',-a]);S.link=$('#lk').value.trim()||base();save();
+  const u=S.link.split('#')[0]+'#pay='+a+'&from='+encodeURIComponent(S.card.n)+'&id='+id,q=$('#qr');q.innerHTML='';q.className='qrb';
+  try{new QRCode(q,{text:u,width:220,height:220,correctLevel:QRCode.CorrectLevel.M})}catch(e){q.className='';q.textContent=u}
+  $('#qn').textContent=usd(a)+' sent. Whoever scans this code receives it.'};
+}
+function claim(){
+ const p=new URLSearchParams(location.hash.slice(1)),a=+p.get('pay'),id=p.get('id');if(!(a>0)||!isFinite(a)||!id)return;
+ try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}
+ const from=p.get('from')||'Someone',dup=S.done.includes(id)||S.sent.includes(id);
+ openOv('Payment',`<div class="c"><p class="mu">${esc(from)} sent you</p><div class="big">${usd(a)}</div>${dup?'<p>This code was already used on this device.</p>':'<button class="pri" id="cl">Claim money</button>'}</div>`);
+ if(!dup)$('#cl').onclick=()=>{S.done.push(id);add(a);S.log.unshift(['Received from '+from,a]);save();closeOv();toast('Received '+usd(a))};
+}
+
+// ---------- Mini games (free to play, just for fun) ----------
+const hs=k=>(S.best&&S.best[k])||0;
+function fin(k,sc,msg,again){clr();const nb=sc>hs(k);if(nb){S.best[k]=sc;save()}
+ $('#ovb').innerHTML=`<div class="c"><div class="big">${nb?'🏆 ':''}${sc} pts</div><p class="mu">${msg}</p><p>${nb?'New best score!':'Best: <b>'+hs(k)+'</b>'}</p><button class="pri" id="ag">Play again</button></div>`;$('#ag').onclick=again}
+const pop=(p,t,x,y)=>{const e=document.createElement('span');e.className='fl';e.textContent=t;e.style.left=x+'px';e.style.top=y+'px';p.appendChild(e);setTimeout(()=>e.remove(),700)};
+function clicker(){openOv('Tap Frenzy',`<div class="c"><div class="big" id="sc">0</div><p class="mu"><span id="tl">20</span>s · Combo <b id="cb">x1</b></p><div class="arena" id="ar"><button class="coin sm2" id="coin">$</button></div><small class="mu">Chase the coin. Pink = 5x. Dodge the 💣. Misses break your combo.</small></div>`);
+ let n=0,cmb=0,kind=0,lt=0;const k=$('#coin'),ar=$('#ar'),end=Date.now()+20000,mul=()=>1+Math.min(4,cmb/5|0);
+ const mv=()=>{lt=Date.now();kind=Math.random()<.14?2:Math.random()<.2?1:0;const z=Math.max(64,112-cmb*2);k.className='coin sm2'+(kind==1?' gold':kind==2?' bomb':'');k.textContent=kind==2?'💣':'$';k.style.cssText=`width:${z}px;height:${z}px;font-size:${z*.45}px;left:${rn(ar.clientWidth-z)}px;top:${rn(ar.clientHeight-z)}px`};
+ k.onpointerdown=()=>{let p;if(kind==2){p=-10;cmb=0}else{cmb++;p=(kind?5:1)*mul()}n=Math.max(0,n+p);pop(ar,(p>0?'+':'')+p,k.offsetLeft,k.offsetTop);$('#sc').textContent=n;$('#cb').textContent='x'+mul();mv()};
+ mv();I(()=>{const l=end-Date.now();$('#tl').textContent=Math.max(0,Math.ceil(l/1000));if(l<=0)return fin('tap',n,`You scored ${n} points`,clicker);if(Date.now()-lt>1300){if(kind!=2)cmb=0;$('#cb').textContent='x1';mv()}},100)}
+function whack(){openOv('Critter Smash',`<div class="c"><div class="big" id="sc">0</div><div class="mu"><span id="tl">20</span>s · <span id="lv">❤️❤️❤️</span></div><div class="gr3">${'<button></button>'.repeat(9)}</div><small class="mu">🌟 = 5 pts · 🐰 = 2 pts · 💣 costs a life</small></div>`);
+ let sc=0,lv=3,nx=0;const end=Date.now()+20000,b=$$('.gr3 button'),C=['🐹','🐹','🐹','🐸','🐰','🐰','🌟','💣','💣'],V=[1,1,1,1,2,2,5,0,0];
+ const ui=()=>{$('#sc').textContent=sc;$('#lv').textContent='❤️'.repeat(Math.max(0,lv))||'💀'};
+ b.forEach(x=>x.onpointerdown=()=>{if(!x.textContent)return;const k=+x.dataset.k;if(C[k]=='💣'){lv--;pop(x.parentNode,'💥',x.offsetLeft,x.offsetTop)}else{sc+=V[k];pop(x.parentNode,'+'+V[k],x.offsetLeft,x.offsetTop)}x.textContent='';ui()});
+ I(()=>{const l=end-Date.now(),now=Date.now();$('#tl').textContent=Math.max(0,Math.ceil(l/1000));if(l<=0||lv<=0)return fin('smash',sc,lv<=0?'Out of lives!':`You scored ${sc} points`,whack);
+  if(now>=nx){const e=b.filter(x=>!x.textContent);if(e.length){const x=e[rn(e.length)],k=rn(C.length),el=(20000-l)/20000,tag=now+Math.random();x.textContent=C[k];x.dataset.k=k;x.dataset.t=tag;O(()=>{if(+x.dataset.t==tag)x.textContent=''},Math.max(550,1100-el*500))}nx=now+Math.max(300,750-(20000-l)/30)}},80)}
+function memory(){const E=['🐱','🐶','🦊','🐼','🐸','🦄','🐙','🐵'],d=[...E,...E].sort(()=>Math.random()-.5);
+ openOv('Memory Match',`<div class="c"><div class="mu">Moves <b id="mv">0</b> · Streak <b id="sk">0</b> · <span id="tl">0</span>s</div><div class="mg">${d.map(()=>'<button></button>').join('')}</div><div class="big" id="sc">0</div><small class="mu">Chain matches for streak bonuses. Finish fast for extra points.</small></div>`);
+ let a=-1,mv=0,m=0,lock=0,sc=0,sk=0;const b=$$('.mg button'),st=Date.now(),ui=()=>{$('#sc').textContent=sc;$('#sk').textContent=sk};
+ I(()=>$('#tl').textContent=Math.floor((Date.now()-st)/1000),500);
+ b.forEach((x,i)=>x.onclick=()=>{if(lock||x.textContent)return;x.textContent=d[i];x.classList.add('flip');if(a<0){a=i;return}
+  $('#mv').textContent=++mv;
+  if(d[a]==d[i]){b[a].disabled=x.disabled=true;a=-1;sc+=100+50*sk++;ui();if(++m==8){const t=(Date.now()-st)/1000;sc+=Math.max(0,Math.round(300-t*5));ui();O(()=>fin('memory',sc,`Cleared in ${mv} moves and ${Math.round(t)}s`,memory),600)}}
+  else{lock=1;sk=0;ui();const j=a;a=-1;O(()=>{b[j].textContent=x.textContent='';b[j].classList.remove('flip');x.classList.remove('flip');lock=0},650)}})}
+function rGames(){$('#t-games').innerHTML='<p class="mu">Free to play. No money, just points and bragging rights.</p>'+[['🪙 Tap Frenzy','Chase the moving coin, build combos, dodge bombs.','tap'],['🐹 Critter Smash','Smash critters, grab stars, avoid bombs. It gets fast!','smash'],['🧠 Memory Match','Match animal pairs and chain streaks for big scores.','memory']].map(([n,d,k],i)=>`<div class="box gm"><div><b>${n}</b><p class="mu">${d}</p><small class="mu">Best: ${hs(k)}</small></div><button class="pri sm" data-g="${i}">Play</button></div>`).join('')}
+
+// ---------- Trading ----------
+const ST=[['BYTE',12,.03],['MOON',3,.07],['LEAF',25,.025],['BOLT',8,.045],['GLOW',38,.035],['ECHO',5,.055]].map(([s,p,v])=>({s,p,v,o:p,m:0,h:[p]}));
+let sym='BYTE',news='',newsT=0;
+function tick(o){o.m=o.m*.8+(Math.random()-.5)*o.v*.6;let g=o.v*(Math.random()*2-1)+o.m;
+ if(Math.random()<.012){g+=(Math.random()<.5?-1:1)*(.08+Math.random()*.08);news=`${o.s} ${g>0?'jumps':'drops'} on breaking news`;newsT=7}
+ o.p=Math.max(.5,o.p*(1+g)*(1+(o.o-o.p)/o.o*.004));o.h.push(o.p);if(o.h.length>90)o.h.shift()}
+for(let i=0;i<60;i++)ST.forEach(tick);
+function chart(c,a){const d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;if(!w)return;c.width=w*d;c.height=h*d;const x=c.getContext('2d');x.scale(d,d);
+ const mn=Math.min(...a),mx=Math.max(...a);x.strokeStyle=a[a.length-1]>=a[0]?'#35d49a':'#ff5d6c';x.lineWidth=2;x.lineJoin='round';x.beginPath();
+ a.forEach((v,i)=>{const X=i/(a.length-1)*w,Y=h-6-(v-mn)/(mx-mn||1)*(h-12);i?x.lineTo(X,Y):x.moveTo(X,Y)});x.stroke()}
+function live(){if(T!='trade')return;const o=ST.find(x=>x.s==sym),ps=S.pos[sym],pc=(o.p/o.h[0]-1)*100;
+ $('#tn').textContent=sym;$('#tpv').innerHTML=`${usd(o.p)} <small class="${pc<0?'dn':'up'}">${pc>=0?'+':''}${pc.toFixed(1)}%</small>`;chart($('#tc'),o.h);
+ $('#th').textContent=ps?`You hold ${ps.q} at an average of ${usd(ps.a)}. Profit or loss ${usd((o.p-ps.a)*ps.q)}`:'You do not hold this stock';
+ $('#ml').innerHTML=ST.map(x=>{const c=(x.p/x.h[0]-1)*100;return `<div class="row2" data-s="${x.s}"><b>${x.s}</b><span>${usd(x.p)}</span><span class="${c<0?'dn':'up'}">${c>=0?'+':''}${c.toFixed(1)}%</span><span class="mu">${S.pos[x.s]?S.pos[x.s].q+' sh':''}</span></div>`}).join('');
+ $('#nw').hidden=!news;$('#nw').textContent=news}
+function rTrade(){
+ $('#t-trade').innerHTML=`<div class="box" id="nw" hidden style="margin-bottom:10px"></div><div class="box"><div class="row" style="padding-top:0"><b id="tn" style="font-size:20px"></b><b id="tpv" style="font-size:20px"></b></div><canvas id="tc" style="height:150px"></canvas><p class="mu" id="th"></p><label>Shares</label><input id="qt" type="number" inputmode="numeric" min="1" step="1" value="1"><div class="two"><button class="pri" id="by" style="background:var(--ok)">Buy</button><button class="pri" id="se" style="background:var(--no);color:#fff">Sell</button></div><small class="mu">Each order has a 0.5% fee. Prices move fast, so watch the news.</small></div><h3>Market</h3><div class="box" id="ml"></div>`;
+ $('#by').onclick=()=>{const q=Math.floor(+$('#qt').value),o=ST.find(x=>x.s==sym);if(!(q>0))return;const cost=r2(q*o.p*1.005);if(cost>S.c)return toast('Insufficient funds');
+  add(-cost);const p=S.pos[sym]||(S.pos[sym]={q:0,a:0});p.a=(p.a*p.q+cost)/(p.q+q);p.q+=q;save();toast(`Bought ${q} ${sym}`);live()};
+ $('#se').onclick=()=>{const q=Math.floor(+$('#qt').value),o=ST.find(x=>x.s==sym),p=S.pos[sym];if(!(q>0))return;if(!p||q>p.q)return toast('Not enough shares');
+  add(r2(q*o.p*.995));p.q-=q;if(!p.q)delete S.pos[sym];save();toast(`Sold ${q} ${sym}`);live()};
+ live()}
+setInterval(()=>{ST.forEach(tick);if(newsT&&!--newsT)news='';live()},1500);
+document.addEventListener('pointerdown',e=>{const x=e.target.closest('[data-s]');if(x){sym=x.dataset.s;live()}});
+
+// ---------- Casino ----------
+const betbar=`<div class="box"><label style="margin:0">Your bet</label><input id="bet" type="number" inputmode="decimal" min="0.01" step="0.01" value="1"><div class="two"><button data-b="h">Half</button><button data-b="m">All in</button></div></div>`;
+function cas(t,h){openOv(t,betbar+h);$$('[data-b]').forEach(b=>b.onclick=()=>$('#bet').value=b.dataset.b=='m'?S.c:Math.max(.01,r2((+$('#bet').value||1)/2)))}
+const take=()=>{const b=r2(+$('#bet').value);if(!(b>0)){toast('Enter a bet');return 0}return pay(b)?b:0};
+const felt0=`<div class="felt"><p class="mu">Dealer</p><div class="hand"><span class="pc back"></span><span class="pc back"></span></div><p class="mu">Place your bet, then deal</p></div>`;
+const deck=()=>{const d=[];for(const s of '♠♥♦♣')for(let r=1;r<=13;r++)d.push({r,s});for(let i=d.length;i>1;){const j=rn(i--);[d[i],d[j]]=[d[j],d[i]]}return d};
+const cd=(c,h)=>{const r={1:'A',11:'J',12:'Q',13:'K'}[c.r]||c.r;return `<span class="pc ${h?'back':'♥♦'.includes(c.s)?'rd':''}">${h?'':`<i>${r}${c.s}</i><b>${c.s}</b>`}</span>`};
+function bj(){
+ cas('Blackjack',`<button class="pri" id="go">Deal</button><div id="tb">${felt0}</div>`);
+ $('#go').onclick=()=>{const b=take();if(!b)return;$('#go').hidden=true;
+  const d=deck(),P=[d.pop(),d.pop()],D=[d.pop(),d.pop()],val=h=>{let s=h.reduce((t,c)=>t+Math.min(c.r,10),0);return h.some(c=>c.r==1)&&s+10<=21?s+10:s};
+  const show=(hide,msg)=>{$('#tb').innerHTML=`<div class="felt bjt"><span class="chip">${usd(b)}</span><p class="mu c">Dealer bot ${hide?'':val(D)}</p><div class="hand">${D.map((c,i)=>cd(c,hide&&i)).join('')}</div><p class="mu c">You ${val(P)}</p><div class="hand">${P.map(c=>cd(c)).join('')}</div>${msg?`<p class="big c">${msg}</p>`:'<div class="two"><button id="hit">Hit</button><button id="st">Stand</button></div>'}</div>`;
+   if(!msg){$('#hit').onclick=()=>{P.push(d.pop());val(P)>21?fin():show(1)};$('#st').onclick=fin}};
+  const fin=()=>{while(val(D)<17)D.push(d.pop());const pv=val(P),dv=val(D),pn=pv==21&&P.length==2,dn=dv==21&&D.length==2;
+   const w=pv>21?0:pn&&!dn?2.5:dn&&!pn?0:dv>21||pv>dv?2:pv==dv?1:0;add(b*w);
+   show(0,w>1?'You win '+usd(b*(w-1)):w==1?'Push, bet returned':'Dealer wins');$('#go').hidden=false;$('#go').textContent='Deal again'};
+  show(1);if(val(P)==21)fin()}}
+function wheel(){
+ const C=['#e53935','#1e88e5','#43a047','#fdd835'],N=['Red','Blue','Green','Gold'],X=[2.2,2.8,5.5,11],q=[0,1,0,2,0,1,0,3,0,1,0,2,0,1,0,2,0,1,0,3,1,2,1,1];
+ cas('Color Wheel',`<div class="felt"><div class="whw"><div class="ptr"></div><div id="wh" class="wh" style="background:conic-gradient(${q.map((c,i)=>`${C[c]} ${i*15}deg ${i*15+15}deg`).join(',')})"></div></div></div><div class="four">${N.map((n,i)=>`<button class="cc${i?'':' on'}" data-p="${i}" style="--c:${C[i]}">${n}<small>x${X[i]}</small></button>`).join('')}</div><button class="pri" id="go">Spin</button><p class="c" id="rs"></p>`);
+ let p=0,rot=0,busy=0;
+ $$('.cc').forEach(b=>b.onclick=()=>{p=+b.dataset.p;$$('.cc').forEach(y=>y.classList.toggle('on',y==b))});
+ $('#go').onclick=()=>{if(busy)return;const b=take();if(!b)return;busy=1;$('#rs').textContent='';
+  const bot=rn(4),idx=rn(24),tg=(360-(idx*15+7.5+(Math.random()-.5)*8)+360)%360;rot+=1800+(tg-rot%360+360)%360;$('#wh').style.transform=`rotate(${rot}deg)`;
+  O(()=>{const col=q[idx],w=col==p;if(w)add(r2(b*X[p]));$('#rs').innerHTML=`Landed on <b>${N[col]}</b>. ${w?'You win '+usd(b*(X[p]-1)):'You lose '+usd(b)}.<br><span class="mu">Bot bet ${N[bot]} and ${bot==col?'won':'lost'}.</span>`;busy=0},4200)}}
+function spit(){
+ cas('Spit',`<p class="mu c">Play a card one higher or lower than a center card (Ace and King count as neighbors). Clear all your cards before the bot does. Win pays double.</p><button class="pri" id="go">Deal</button><div id="tb">${felt0}</div><p class="c big" id="rs"></p>`);
+ $('#go').onclick=()=>{const b=take();if(!b)return;$('#go').hidden=true;$('#rs').textContent='';
+  const d=deck(),mk=()=>({t:d.splice(0,4),s:d.splice(0,14)}),me=mk(),bot=mk(),mid=[d.pop(),d.pop()];let over=0;
+  const pile=c=>mid.findIndex(p=>[1,12].includes(Math.abs(c.r-p.r))),left=p=>p.t.filter(Boolean).length+p.s.length,moves=p=>p.t.some(c=>c&&pile(c)>=0);
+  const play=(p,i)=>{const c=p.t[i],k=c?pile(c):-1;if(k<0)return 0;mid[k]=c;p.t[i]=p.s.pop()||null;return 1};
+  const end=w=>{over=1;if(w)add(b*2);$('#rs').textContent=w?'You win '+usd(b):'Bot wins';$('#go').hidden=false;$('#go').textContent='Deal again'};
+  const chk=()=>{if(!left(me))end(1);else if(!left(bot))end(0)};
+  const flip=()=>[me,bot].forEach((p,k)=>{let c=p.s.pop();if(!c){const j=p.t.findIndex(Boolean);if(j>=0){c=p.t[j];p.t[j]=null}}if(c)mid[k]=c});
+  const render=()=>{$('#tb').innerHTML=`<div class="felt"><p class="mu c">Bot: ${left(bot)} cards left</p><div class="hand bt">${bot.t.map(c=>c?cd(c):'<span class="pc e"></span>').join('')}</div><div class="hand">${mid.map(c=>cd(c)).join('')}</div><div class="hand">${me.t.map((c,i)=>c?`<button class="cbt" data-i="${i}">${cd(c)}</button>`:'<span class="pc e"></span>').join('')}</div><p class="mu c">You: ${left(me)} cards left</p></div>`;
+   $$('.cbt').forEach(x=>x.onpointerdown=()=>{if(!over&&play(me,+x.dataset.i)){chk();render()}})};
+  render();
+  I(()=>{if(over)return;if(!moves(me)&&!moves(bot))flip();else if(Math.random()<.75){const i=bot.t.findIndex(c=>c&&pile(c)>=0);if(i>=0)play(bot,i)}chk();render()},1000)}}
+function rCasino(){$('#t-casino').innerHTML='<div class="felt"><p class="mu">The House Table</p><div class="hand">'+cd({r:1,s:'♠'})+cd({r:13,s:'♥'})+cd({r:10,s:'♦'})+'</div><span class="chip">$5</span><span class="chip c2">$25</span><span class="chip c3">$100</span></div><p class="mu">Bet any amount you have. You play against the house bot.</p>'+[['Blackjack','Beat the dealer bot to 21. Blackjack pays 3 to 2.'],['Spit','A real-time card race against a bot. Win pays double.'],['Color Wheel','Bet on the color the wheel lands on. Rarer colors pay more.']].map(([n,d],i)=>`<div class="box gm"><div><b>${n}</b><p class="mu">${d}</p></div><button class="pri sm" data-c="${i}">Play</button></div>`).join('')}
+
+// ---------- Jobs ----------
+const JOBS=[['Inventory Tracker','boxes','Count stock arriving at the warehouse'],['Mail Room Clerk','letters','Log incoming mail and sort it'],['Records Assistant','files','Keep the records office organized'],['Shipping Coordinator','parcels','Track outgoing parcels']];
+function rJobs(){$('#t-jobs').innerHTML='<p class="mu">Apply for a job, then finish tasks. Every 15 tasks pays $5. A wrong answer sets you back 2 tasks.</p>'+JOBS.map(([n,,d],i)=>{const j=S.jobs[i];return `<div class="box gm"><div><b>${n}</b><p class="mu">${d}</p>${j?`<small class="mu">${j.n} tasks done, ${j.n%15}/15 to next paycheck</small>`:''}</div><button class="${j?'':'pri'} sm" data-j="${i}">${j?'Work':'Apply'}</button></div>`}).join('')}
+function apply(i){if(S.jobs[i])return work(i,'c');S.jobs[i]={n:0};save();
+ openOv('Application','<p class="c mu">Reviewing your application...</p>');
+ O(()=>{openOv('You’re hired',`<div class="c"><div class="big">Welcome aboard</div><p class="mu">${JOBS[i][0]}. Choose your kind of work.</p><div class="two"><button class="pri" id="wc">Computer work</button><button class="pri" id="wp">Paperwork</button></div></div>`);$('#wc').onclick=()=>work(i,'c');$('#wp').onclick=()=>work(i,'p')},1300)}
+function work(i,k){const j=S.jobs[i],J=JOBS[i];let t;
+ if(k=='c'){const q=1+rn(40);t={h:`Order #${1000+rn(9000)} arrived with ${q} ${J[1]}.`,q}}
+ else t=[['Payment due within 30 days. Total $'+(20+rn(300)),'Invoice'],['Thank you for your purchase. Paid $'+(5+rn(80)),'Receipt'],['Team meeting moved to '+(1+rn(11))+' PM on Friday','Memo']][rn(3)];
+ const fk=[1,2,3].map(()=>`<tr><td>${J[1]}</td><td>${1+rn(30)}</td></tr>`).join('');
+ const scr=k=='c'?`<div class="mon"><div class="scr"><div class="wt"><i></i><i></i><i></i>&nbsp;${J[0]} · Tracker</div><div class="mail">📧 New message: ${t.h}</div><table class="sheet"><tr><th>Item</th><th>Qty</th></tr>${fk}<tr class="hl"><td>${J[1]} (new)</td><td><input id="an" type="number" inputmode="numeric" placeholder="?"></td></tr></table><button class="pri" id="sb" style="margin-top:8px">Log entry</button></div></div><div class="stand"></div>`:`<div class="desk"><div class="ppr">${t[0]}</div><p class="c" style="color:#fff;margin:14px 0 0;font-weight:600">File it in the right folder</p><div class="fold">${['Invoice','Receipt','Memo'].map(f=>`<button data-f="${f}">📁<br>${f}</button>`).join('')}</div></div>`;
+ openOv(J[0],`<div class="seg"><button data-k="c" class="${k=='c'?'on':''}">Computer work</button><button data-k="p" class="${k=='p'?'on':''}">Paperwork</button></div><div class="box"><div class="bar"><i style="width:${j.n%15/15*100}%"></i></div><small class="mu">${j.n%15}/15 tasks to next $5</small>${scr}</div>`);
+ const done=ok=>{if(!ok){j.n=Math.max(j.n-j.n%15,j.n-2);save();toast('Wrong! Lost 2 tasks of progress');return work(i,k)}j.n++;if(j.n%15==0){add(5);toast('Paycheck: +$5.00')}else save();work(i,k)};
+ $$('.seg button').forEach(b=>b.onclick=()=>work(i,b.dataset.k));
+ if(k=='c'){$('#sb').onclick=()=>done(+$('#an').value==t.q);$('#an').onkeydown=e=>e.key=='Enter'&&$('#sb').click();$('#an').focus()}
+ else $$('[data-f]').forEach(b=>b.onclick=()=>done(b.dataset.f==t[1]))}
+
+// ---------- App shell ----------
+const R={card:rCard,pay:rPay,games:rGames,trade:rTrade,casino:rCasino,jobs:rJobs};let T='card';
+function go(t){T=t;$$('.tab').forEach(e=>e.classList.toggle('on',e.id=='t-'+t));$$('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));scrollTo(0,0);R[t]()}
+document.addEventListener('click',e=>{const c=s=>e.target.closest(s);let x;
+ if(c('#gear'))return rSet();if(x=c('[data-th]')){S.theme=x.dataset.th;save();applyTheme();return rSet()}if(x=c('nav button'))return go(x.dataset.t);
+ if(x=c('[data-g]'))return[clicker,whack,memory][x.dataset.g]();
+ if(x=c('[data-c]'))return[bj,spit,wheel][x.dataset.c]();
+ if(x=c('[data-j]'))return apply(+x.dataset.j);
+ if(x=c('.sw'))return buySw(x)});
+upd();go('card');claim();
+</script>
+</body>
+</html>
